@@ -1,0 +1,107 @@
+<style>
+.flip-box {
+    margin:auto;
+  background-color: transparent;
+  width: 24.1vw;
+  height: 200px;
+  perspective: 1000px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size:1.2vw;
+  line-height:1.3em;
+}
+
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-box.hover .flip-box-inner {
+  transform: rotateX(180deg);
+}
+
+.flip-box.hover .flip-box-front,
+.flip-box .flip-box-back {
+  opacity: 0;
+  transition:.8s;
+}
+
+.flip-box.hover .flip-box-back {
+  opacity: 1;
+}
+
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-box-front {
+  background-color: transparent;
+  color: white;
+  text-align: justify;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flip-box-back {
+  text-align: justify;
+  background-color: transparent;
+  color: white;
+  transform: rotateX(180deg);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ref-verse {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4vw;
+}
+@media (max-width:1024px) {
+    .flip-box {
+        font-size:20px;
+        width:260px;
+    }
+    .ref-verse {
+        font-size: 20px;
+    }
+}
+</style>
+
+<div class="flip-box">
+  <div class="flip-box-inner">
+    <div class="flip-box-front">
+      Si la communion fraternelle se réfère aux liens affectifs qu’entretiennent ceux qui partagent la même foi en Christ (frères/soeurs en Christ), la solidarité concerne ici toute forme d’attention et d’assistance portées aux personnes en difficulté ou dans le besoin; que celles-ci soient chrétiennes ou pas.
+    </div>
+    <div class="flip-box-back">
+      <div class="ref-verse">Galates 6 : 9-10</div>
+      Ne nous lassons pas de faire le bien ; car nous moissonnerons au temps convenable, si nous ne nous relâchons pas. Ainsi donc, pendant que nous en avons l'occasion, pratiquons le bien envers tous, et surtout envers les frères en la foi.
+    </div>
+  </div>
+</div>
+<script>
+jQuery(() => {
+    let flipBox = jQuery('.flip-box');
+    let idTimeout;
+    function autoFlip() {
+        idTimeout = setTimeout(() => {
+            flipBox.toggleClass('hover');
+            autoFlip()
+        }, 10000)
+    }
+    autoFlip();
+    flipBox.hover(
+        () => {
+            clearTimeout(idTimeout)
+        }, 
+        () => {
+            autoFlip()
+        });
+})
+</script>
